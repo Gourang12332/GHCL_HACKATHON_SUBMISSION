@@ -1,4 +1,4 @@
-🌟 AI Voice Assistant for Financial Operations
+## 🌟 AI Voice Assistant for Financial Operations
 Reinventing Banking with Voice. Accessible. Intelligent. Inclusive.
 🚀 Overview
 
