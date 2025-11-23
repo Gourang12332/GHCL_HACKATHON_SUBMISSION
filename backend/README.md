@@ -52,7 +52,7 @@ MOCK_BANK_API_BASE="https://mock-bank.local"
 ### 🔥  LOCAL NLU MODEL (VIA NGROK)
 ###############################################################
 NLU_API_URL=""
-
+### NLU_MODEL_Colab.py file in /backend/ml folder is a colab file wiht ngrok connection which will give the public api for this URL.
 ```
 
 The server exposes REST APIs on `http://localhost:8000` and WebSockets on `ws://localhost:8000/ws/voice`.
