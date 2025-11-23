@@ -1,0 +1,4 @@
+# .gitignore
+backend/app/config.py
+backend/app/__pycache__/
+.env
