@@ -8,17 +8,51 @@ This backend bundles three cooperative layers inside a single FastAPI deployment
 
 The layout mirrors the flow shared in the product script: speech → intent → dialog plan → validation → banking action → confirmation.
 
-## Quick start
+## config.py
 
 ```bash
-cd backend
-poetry install
-# export the following before running:
-#   MONGODB_URI
-#   HUGGINGFACE_API_KEY
-#   OPENAI_API_KEY
-#   ELEVENLABS_API_KEY
-poetry run uvicorn app.main:app --reload
+###############################################################
+### 🔥  PROJECT INFO
+###############################################################
+APP_NAME="AI Voice Banking Backend"
+ENVIRONMENT="development"
+
+###############################################################
+### 🔥  DATABASE CONFIG
+###############################################################
+REDIS_URL=""
+MONGODB_URI=""
+MONGODB_DB_NAME="ai_voice_banking"
+###############################################################
+### 🔥  OPENAI CONFIG
+###############################################################
+OPENAI_API_KEY=""
+OPENAI_WHISPER_MODEL="whisper-1"
+
+###############################################################
+### 🔥  ELEVENLABS CONFIG
+###############################################################
+ELEVENLABS_API_KEY=""
+ELEVENLABS_VOICE_ID=""
+
+###############################################################
+### 🔥  SECURITY & AUTH
+###############################################################
+ACCESS_TOKEN_TTL_MINUTES=10
+REFRESH_TOKEN_TTL_MINUTES=60
+VOICE_SIMILARITY_THRESHOLD=0.78
+MFA_REQUIRED_AMOUNT=10000.0
+
+###############################################################
+### 🔥  MOCK BANKING API
+###############################################################
+MOCK_BANK_API_BASE="https://mock-bank.local"
+
+###############################################################
+### 🔥  LOCAL NLU MODEL (VIA NGROK)
+###############################################################
+NLU_API_URL=""
+
 ```
 
 The server exposes REST APIs on `http://localhost:8000` and WebSockets on `ws://localhost:8000/ws/voice`.
@@ -49,7 +83,7 @@ All ML helpers sit under `app/ml/` with clear interfaces (`transcribe_audio`, `i
 
 - Data now persist in MongoDB via `app/db.py`. Set the `MONGODB_URI` env var (or edit `app/config.py`) with your cluster URI before running in other environments.
 - ML helpers rely on external APIs:
-  - `HUGGINGFACE_API_KEY` for intent + slot inference (default model `soltaniali/IDSF_BERT`).
+  - `NLU_API_URL` for intent + slot inference (default model `facebook/bart-large-mnli`).
   - `OPENAI_API_KEY` for Whisper STT (configurable model name).
   - `ELEVENLABS_API_KEY` for TTS; override the `elevenlabs_voice_id` if you prefer a different speaker.
 - Security helpers in `app/core/security.py` mimic OAuth-style access/refresh tokens and OTP generation. Swap in your preferred KMS/JWT secret manager.
